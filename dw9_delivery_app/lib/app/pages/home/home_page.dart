@@ -6,6 +6,7 @@ import 'package:dw9_delivery_app/app/models/product_model.dart';
 import 'package:dw9_delivery_app/app/pages/home/home_controller.dart';
 import 'package:dw9_delivery_app/app/pages/home/home_state.dart';
 import 'package:dw9_delivery_app/app/pages/home/widget/delivery_product_tile.dart';
+import 'package:dw9_delivery_app/app/pages/home/widget/shopping_bag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:match/match.dart';
@@ -48,10 +49,22 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
                     itemCount: state.products.length,
                     itemBuilder: (context, index) {
                       final products = state.products[index];
-                      return DeliveryProductTile(product: products);
+                      final orders = state.shoppinBag.where(
+                        (order) => order.product == products,
+                      );
+                      return DeliveryProductTile(
+                        product: products,
+                        orderProduct: orders.isNotEmpty ? orders.first : null,
+                      );
                     },
                   ),
                 ),
+                Visibility(
+                  visible: state.shoppinBag.isNotEmpty,
+                  child: ShoppingBagWidget(
+                    bag: state.shoppinBag,
+                  ),
+                )
               ],
             );
           },
