@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dw9_delivery_app/app/core/extensions/formatter_extension.dart';
 import 'package:dw9_delivery_app/app/core/ui/styles/app_styles.dart';
 import 'package:dw9_delivery_app/app/core/ui/styles/colors_app.dart';
 import 'package:dw9_delivery_app/app/core/ui/styles/text_styles.dart';
@@ -19,12 +20,13 @@ class OrderProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final product = orderProduct.product;
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Row(
         children: [
           Image.network(
-            'https://assets.unileversolutions.com/recipes-v2/106684.jpg?imwidth=800',
+            product.image,
             width: 100,
             height: 100,
             fit: BoxFit.cover,
@@ -36,7 +38,7 @@ class OrderProductTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'data',
+                    product.name,
                     style:
                         context.textStyles.textRegular.copyWith(fontSize: 16),
                   ),
@@ -44,7 +46,7 @@ class OrderProductTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'data',
+                        (product.price * orderProduct.amount).currencyPTBR,
                         style: context.textStyles.textMeduim.copyWith(
                           color: context.colors.secondary,
                           fontSize: 14,
@@ -53,7 +55,7 @@ class OrderProductTile extends StatelessWidget {
                       DeliveryIncrementDecrementButton.compact(
                         incrementTap: () {},
                         decrementTap: () {},
-                        amout: 1,
+                        amout: orderProduct.amount,
                       )
                     ],
                   )
