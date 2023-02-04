@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dw9_delivery_app/app/core/global/global_context.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthInterceptor extends Interceptor {
@@ -14,10 +15,8 @@ class AuthInterceptor extends Interceptor {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
-      handler.next(err);
+      GlobalContext.i.loginExpire();
 
-      final sp = await SharedPreferences.getInstance();
-      final accessToken = sp.clear();
     } else {
       handler.next(err);
     }

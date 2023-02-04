@@ -80,6 +80,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                         ),
                         TextFormField(
                           controller: passwordEC,
+                          obscureText: true,
                           decoration: const InputDecoration(labelText: 'Senha'),
                           validator: Validatorless.multiple([
                             Validatorless.required('Senha é obigatória'),
